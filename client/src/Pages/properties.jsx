@@ -18,7 +18,10 @@ const Properties = () => {
   }, []);
 
   const fetchProperties = async () => {
-    const res = await API.get("/properties");
+    console.log('hiii')
+    const res = await API.get("/api/properties");
+    console.log(res.data)
+
     setProperties(res.data);
   };
 
