@@ -8,11 +8,14 @@ const AuthProvider = ({ children }) => {
 
   const [token, setToken] = useState(storedToken);
   const [user, setUser] = useState(storedToken ? jwtDecode(storedToken) : null);
+  //If token exists → decode it → get user info
 
   const login = (token) => {
     localStorage.setItem("token", token);
     setToken(token);
     setUser(jwtDecode(token));
+    // Initial decode = page load 
+    // This decode = login moment
   };
   const logout = (token) => {
     localStorage.removeItem("token");

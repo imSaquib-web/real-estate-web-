@@ -5,6 +5,9 @@ import { AuthContext } from "../authContext";
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const [filters, setFilters] = useState({
     type: "",
     minPrice: "",
@@ -15,13 +18,12 @@ const Properties = () => {
 
   useEffect(() => {
     fetchProperties();
-  }, []);
+  }, [page]);
 
   const fetchProperties = async () => {
-    const res = await API.get("/properties");
-    console.log(res.data)
-
-    setProperties(res.data);
+    const res = await API.get(`/properties?page=${page}&limit=6`);
+    setProperties(res.data.properties);
+    setTotalPages(res.data.totalPages);
   };
 
   const handleDelete = async (id) => {
@@ -124,7 +126,6 @@ const Properties = () => {
                   >
                     💬 WhatsApp
                   </a>
-                  {console.log(p.createdBy.phone)}
                 </div>
 
                 {/* OWNER ACTIONS */}
@@ -146,6 +147,22 @@ const Properties = () => {
           ))}
         </div>
       )}
+      <div className="pagination">
+        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+          Prev
+        </button>
+
+        <span>
+          Page {page} of {totalPages}
+        </span>
+
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
