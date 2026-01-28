@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
     // Initial decode = page load 
     // This decode = login moment
   };
-  const logout = (token) => {
+  const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
     setUser(null);

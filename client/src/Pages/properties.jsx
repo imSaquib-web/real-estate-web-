@@ -27,6 +27,7 @@ const Properties = () => {
       setLoading(true);
       setError(null);
       const res = await API.get(`/properties?page=${page}&limit=6`);
+      // Access properties from res.data IF res.data exists
       setProperties(res.data?.properties || []);
       setTotalPages(res.data?.totalPages || 1);
     } catch (err) {
@@ -100,8 +101,11 @@ const Properties = () => {
           />
         </div>
 
-        <button onClick={applyFilter} className="btn-filter">
-          Apply Filter
+        <button
+          onClick={applyFilter}
+          className="btn-filter bg-primary w-full h-full"
+        >
+          Apply Filte
         </button>
       </div>
 
